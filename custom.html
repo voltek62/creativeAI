@@ -10,6 +10,20 @@
   	</p>
 </template>
 
+
+<template name="custom_post_body">
+  <div class="post-body markdown" aria-live="polite">{{{makeVideo htmlBody}}}</div>
+</template>
+
+
+<template name="custom_post_info">
+  <div class="{{moduleClass}}" aria-live="off">
+    {{#if postedAt}}<span class="post-time">{{timeAgo postedAt}}</span>{{/if}}
+  </div>
+</template>
+
+
+
 <!-- <template name="custom_post_info">
 </template> -->
 <template name="custom_post_domain">
@@ -118,7 +132,7 @@
 </template>
 
 
-
+<!------- USER PAGE -------->
 <template name="custom_user_upvoted_posts">
   <div class="user-profile-votes grid grid-module">
     <!-- <h3>{{_ "upvoted_posts"}}</h3> -->
@@ -132,10 +146,11 @@
 <template name="custom_post_vote">
 	{{#unless isMainPage}}
 		<div class="post-vote {{moduleClass}}">
-			<div class="vote-actions {{actionsClass}}">
+			<div class="vote-actions {{actionsClass}}" style="padding-right:4px;">
 				<a class="vote-action upvote-link" href="#" title="Save to favorites">
 					{{{icon "best"}}}
 					<span class="sr-only">{{_ "upvote_"}}</span>
+					<span class="points">{{baseScore}}</span>
 				</a>
 			</div>
 		</div>
@@ -144,16 +159,17 @@
 
 <template name="custom_post_vote2">
 	<span class="vote-actions {{actionsClass}}">
-		<a class="vote-action upvote-link" href="#" title="Save to favorites" style="background-color:#eeeeee;margin-right:4px;">
+		<a class="vote-action upvote-link" href="#" title="Save to favorites" style="background-color:#eeeeee;margin-left:1px;margin-right:4px;padding-right:4px;">
 			{{{icon "best"}}}
 			<span class="sr-only">{{_ "upvote_"}}</span>
+			<span class="points">{{baseScore}}</span>
 		</a>
 	</span>
 </template>
 
 <!------- SHARE -------->
 <template name="custom_post_share2">
-  <span class="custom_share">
+  <span class="custom_share" style="margin-right:2px;">
       <a class="share-option-twitter" href="//twitter.com/intent/tweet?text={{encodedTitle}}:&url={{getSiteUrl}}{{this.getPageUrl}}&hashtags=CreativeAI" target="_blank">{{{icon "twitter"}}}</a>
       <a class="share-option-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{getSiteUrl}}{{this.getPageUrl}}" target="_blank">{{{icon "facebook"}}}</a>
   </span>

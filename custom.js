@@ -1,12 +1,70 @@
-// if(Meteor.startup){
-// 	Avatar.options = {
-// 		gravatarDefault: 'initials' // default is 404
-// 	};
-// }
-
-
 if(Meteor.isClient){
 
+  /// VOTE ///
+  Template.custom_post_vote2.helpers({
+    enableDownvotes: function () {
+      return Settings.get("enableDownvotes", false);
+    },
+    actionsClass: function () {
+      var user = Meteor.user();
+      var actionsClass = "";
+      if(!user) return false;
+      if (user.hasUpvoted(this)) {
+        actionsClass += " voted upvoted";
+      }
+      if (user.hasDownvoted(this)) {
+        actionsClass += " voted downvoted";
+      }
+      if (Settings.get("enableDownvotes", false)) {
+        actionsClass += " downvotes-enabled";
+      }
+      return actionsClass;
+    }
+  });
+
+  Template.custom_post_vote2.events({
+    'click .upvote-link': function(e){
+      var post = this;
+      var user = Meteor.user();
+      e.preventDefault();
+      if(!user){
+        FlowRouter.go('atSignIn');
+        Messages.flash(i18n.t("please_log_in_first"), "info");
+      }
+      if (user.hasUpvoted(post)) {
+        Meteor.call('cancelUpvotePost', post._id, function(){
+          Events.track("post upvote cancelled", {'_id': post._id});
+        });        
+      } else {
+        Meteor.call('upvotePost', post._id, function(){
+          Events.track("post upvoted", {'_id': post._id});
+        });  
+      }
+    },
+    'click .downvote-link': function(e){
+      var post = this;
+      var user = Meteor.user();
+      e.preventDefault();
+      if(!user){
+        FlowRouter.go('atSignIn');
+        Messages.flash(i18n.t("please_log_in_first"), "info");
+      }
+      if (user.hasDownvoted(post)) {
+        Meteor.call('cancelDownvotePost', post._id, function(){
+          Events.track("post downvote cancelled", {'_id': post._id});
+        });        
+      } else {
+        Meteor.call('downvotePost', post._id, function(){
+          Events.track("post downvoted", {'_id': post._id});
+        });  
+      }
+    }  
+  });
+
+
+
+
+  /// HELPERS ///
 	Template.registerHelper("isEmpty", function (object) {
 		if(object === undefined){return false;}
     return true;
@@ -21,25 +79,18 @@ if(Meteor.isClient){
 
   Template.registerHelper("isMainPage", function () {
     if (FlowRouter.getRouteName() === "postPage") {
-      console.log(this);
-      console.log( Telescope.utils.getSiteUrl().slice(0,-1));
-      console.log(this.getPageUrl());
       return true;
     }
     return false;
   });
   Template.registerHelper("gotolink", function() {
     if(this === undefined){return false;}
-    // console.log(this);
-    // console.log(this.url);
-    // console.log(this.getLinkTarget());
-    // console.log(this.getPageUrl());
-    // console.log(this.getShareableLink());
-    // return this.getShareableLink();
+    if(this.url === undefined){return false;}
     return this.url;
   });
   Template.registerHelper("haslink", function() {
     if(this === undefined){return false;}
+    if(this.url === undefined){return false;}
     if(this.url.length > 0){
       return true;
     }
@@ -58,7 +109,7 @@ if(Meteor.isClient){
 }
 
 
-
+/// FIELDS ///
 Posts.addField({
   fieldName: 'thumbnailUrl',
   fieldSchema: {
@@ -174,7 +225,7 @@ Posts.addField(
     fieldName: 'categories',
     fieldSchema: {
       type: [String],
-      optional: false,
+      optional: true,
       editableBy: ["member", "admin"],
       autoform: {
         noselect: true,
@@ -210,3 +261,5 @@ Posts.addField(
 //     }
 //   }
 // });
+
+

@@ -6,14 +6,18 @@
   	</p>
 </template>
 
-<template name="custom_post_domain">
-</template>
-
 <!-- <template name="custom_post_info">
 </template> -->
+<template name="custom_post_domain">
+</template>
 <template name="custom_post_comments_link">
 </template>
-
+<template name="custom_post_rank">
+</template>
+<template name="custom_post_share">
+</template>
+<template name="custom_post_admin">
+</template>
 
 <template name="custom_post_thumbnail">
 	{{#if isEmpty services_thumbnail}}
@@ -23,16 +27,9 @@
 	  		</div>
 	  	</a>
 	{{else}}
-		<div class="post-thumbnail-container post-thumbnail" style="background-image:url()">
-  		</div>
+		<!-- <div class="post-thumbnail-container post-thumbnail" style="background-image:url()">
+  		</div> -->
 	{{/if}}
-</template>
-
-<template name="custom_post_share">
-</template>
-
-
-<template name="custom_post_admin">
 </template>
 
 <template name="custom_post_admin2">
@@ -73,6 +70,7 @@
 </template>
 
 
+<!------- AVATARS -------->
 <template name="custom_post_actions">
 </template>
 <template name="custom_post_avatars">
@@ -109,6 +107,15 @@
 
 
 
+<template name="custom_user_upvoted_posts">
+  <div class="user-profile-votes grid grid-module">
+    <!-- <h3>{{_ "upvoted_posts"}}</h3> -->
+    <h3>Favorites</h3>
+    {{> posts_list_controller arguments}}
+  </div>
+</template>
+
+
 <!------- VOTE -------->
 <template name="custom_post_vote">
 	{{#unless isMainPage}}
@@ -122,10 +129,15 @@
 		</div>
 	{{/unless}}
 </template>
-<template name="custom_post_vote2">
-	<a style="color:white;background-color: #eeeeee;color:gray;" href=""><i class="icon fa fa-fw fa-star icon-best" aria-hidden="true"></i></a>
-</template>
 
+<template name="custom_post_vote2">
+	<span class="vote-actions {{actionsClass}}">
+		<a class="vote-action upvote-link" href="#" title="Save to favorites" style="background-color:#eeeeee;margin-right:4px;">
+			{{{icon "best"}}}
+			<span class="sr-only">{{_ "upvote_"}}</span>
+		</a>
+	</span>
+</template>
 
 <!------- SHARE -------->
 <template name="custom_post_share2">
@@ -136,8 +148,7 @@
 </template>
 
 
-
-
+<!------- POST CONTENT -------->
 <template name="custom_post_content">
   	{{#if isMainPage}}
 	  	<div class="post-content {{moduleClass}}" style="font-size:1.25em;">

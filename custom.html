@@ -1,0 +1,175 @@
+<template name="custom_post_title">
+  	<a class="custom_post_title" href="{{custom_link}}">{{custom_title}}</a>
+  	<br/>
+  	<p class="custom_post_headline">
+  		{{services_headline}}
+  	</p>
+</template>
+
+<template name="custom_post_domain">
+</template>
+
+<!-- <template name="custom_post_info">
+</template> -->
+<template name="custom_post_comments_link">
+</template>
+
+
+<template name="custom_post_thumbnail">
+	{{#if isEmpty services_thumbnail}}
+		<a href="/posts/{{this._id}}/{{this.slug}}">
+			<div class="post-thumbnail-container post-thumbnail" style="background-image:url( {{services_thumbnail}} )">
+	    		<div class="post-thumbnail-loading">{{>spinner}}</div>
+	  		</div>
+	  	</a>
+	{{else}}
+		<div class="post-thumbnail-container post-thumbnail" style="background-image:url()">
+  		</div>
+	{{/if}}
+</template>
+
+<template name="custom_post_share">
+</template>
+
+
+<template name="custom_post_admin">
+</template>
+
+<template name="custom_post_admin2">
+	{{#if isMainPage}}
+	  <span class="{{moduleClass}} post-admin" aria-live="off">
+	    {{#if isAdmin}}
+
+	      <!-- <div class="post-admin-stats">
+	        <span title="{{_ 'score'}}">{{{icon "score"}}} {{shortScore}} <span class="sr-only">{{_ "score"}}</span></span>
+	        <span title="{{_ 'clicks'}}">{{{icon "clicks"}}} {{clickCount}} <span class="sr-only">{{_ "clicks"}}</span></span>
+	        <span title="{{_ 'views'}}">{{{icon "views"}}} {{viewCount}} <span class="sr-only">{{_ "views"}}</span></span>
+	      </div> -->
+
+	      <div class="post-admin-actions">
+	        <a href="{{pathFor 'postEdit' _id=_id}}" class="edit-link" title="{{_ 'edit'}}">{{{icon "edit"}}} <span class="sr-only">{{_ "edit"}}</span></a>
+	        {{#if showApprove}}
+	          <a href="#" class="approve-link" title="{{_ 'approve'}}">{{{icon "approve"}}} <span class="sr-only">{{_ "approve"}}</span></a>
+	        {{/if}}
+	        {{#if showReject}}
+	          <a href="#" class="reject-link" title="{{_ 'reject'}}">{{{icon "reject"}}} <span class="sr-only">{{_ "reject"}}</span></a>
+	        {{/if}}
+	        <a href="#" class="delete-link" title="{{_ 'delete'}}">{{{icon "delete"}}} <span class="sr-only">{{_ "delete"}}</span></a>
+	      </div>
+
+	    {{else}}
+
+	      {{#if canEdit this}}
+	        <div class="post-admin-actions">
+	          <a href="{{pathFor 'postEdit' _id=_id}}" class="edit-link" title="{{_ 'edit'}}">{{{icon "edit"}}} <span class="sr-only">{{_ "edit"}}</span></a>
+	          <a href="#" class="delete-link" title="{{_ 'delete'}}">{{{icon "delete"}}} <span class="sr-only">{{_ "delete"}}</span></a>
+	        </div>
+	      {{/if}}
+
+	    {{/if}}
+	  
+	  </span>
+ 	{{/if}}
+</template>
+
+
+<template name="custom_post_actions">
+</template>
+<template name="custom_post_avatars">
+</template>
+<template name="custom_post_discuss">
+</template>
+
+<template name="custom_post_discuss2">
+	<div class="post-discuss {{moduleClass}}">
+	    <a class="discuss-link go-to-comments action" href="{{this.getPageUrl}}" title="{{_ 'discuss'}}">
+	      {{{icon "comment"}}}
+	      <span class="action-count">{{commentCount}}</span>
+	      <span class="sr-only"> {{_ "comments"}}</span>
+	    </a>
+  	</div>
+</template>
+
+<template name="custom_post_avatars2">
+  <div class="post-avatars {{moduleClass}}" aria-hidden="true" aria-live="off">
+    <a href="{{getProfileUrl userId}}" title="{{getDisplayName userId}}" class="avatar-link avatar-small author-avatar">
+      {{> avatar userId=userId shape="circle"}}
+    </a>
+    {{#if commenters}}
+      <div class="post-commenters">
+      {{#each commenters}}
+        <a href="{{getProfileUrl this}}" title="{{getDisplayName this}}" class="avatar-link avatar-small commenter-avatar">
+          {{> avatar userId=this shape="circle"}}
+        </a>
+      {{/each}}
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+
+
+<!------- VOTE -------->
+<template name="custom_post_vote">
+	{{#unless isMainPage}}
+		<div class="post-vote {{moduleClass}}">
+			<div class="vote-actions {{actionsClass}}">
+				<a class="vote-action upvote-link" href="#" title="Save to favorites">
+					{{{icon "best"}}}
+					<span class="sr-only">{{_ "upvote_"}}</span>
+				</a>
+			</div>
+		</div>
+	{{/unless}}
+</template>
+<template name="custom_post_vote2">
+	<a style="color:white;background-color: #eeeeee;color:gray;" href=""><i class="icon fa fa-fw fa-star icon-best" aria-hidden="true"></i></a>
+</template>
+
+
+<!------- SHARE -------->
+<template name="custom_post_share2">
+  <span class="custom_share">
+      <a class="share-option-twitter" href="//twitter.com/intent/tweet?text={{encodedTitle}}:&url={{getSiteUrl}}{{this.getPageUrl}}&hashtags=CreativeAI" target="_blank">{{{icon "twitter"}}}</a>
+      <a class="share-option-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{getSiteUrl}}{{this.getPageUrl}}" target="_blank">{{{icon "facebook"}}}</a>
+  </span>
+</template>
+
+
+
+
+<template name="custom_post_content">
+  	{{#if isMainPage}}
+	  	<div class="post-content {{moduleClass}}" style="font-size:1.25em;">
+		    <div class="post-info" >
+		      	{{> modules zone="postHeading" zoneClass="post-heading" moduleData=this}}
+		      	{{> modules zone="postMeta" zoneClass="post-meta" moduleClass="post-meta-item" moduleData=this}}
+		      	<div class="btn_custom" style="margin-bottom:4px;margin-top:10px;">
+		      		{{#if haslink}}
+			      		<a style="background-color:#5898f1;padding:6px;border-radius:3px;font-weight:600;color:white;padding-left:25px;padding-right:25px;" title="{{gotolink}}" href="{{gotolink}}">GO TO LINK</a>
+			      	{{/if}}
+		      		{{> custom_post_vote2}}
+		      		{{> custom_post_share2}}
+		      		{{> custom_post_admin2}}
+		      	</div>
+		    </div>
+		   	{{> modules zone="postThumbnail" moduleData=this}}
+		</div>
+  	{{else}}
+  
+	  <div class="post-content {{moduleClass}}">
+	    {{> modules zone="postThumbnail" moduleData=this}}
+	    <div class="post-info">
+	      {{> modules zone="postHeading" zoneClass="post-heading" moduleData=this}}
+	      {{> modules zone="postMeta" zoneClass="post-meta" moduleClass="post-meta-item" moduleData=this}}
+	      {{> custom_post_avatars2}}
+		  {{> custom_post_discuss2}}
+	    </div>
+	  </div>
+
+	{{/if}}
+</template>
+
+
+
+

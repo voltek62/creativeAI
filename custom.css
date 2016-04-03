@@ -18,7 +18,7 @@ body{
 .post-thumbnail{
 	height: 160px;
 	width: 100%;
-	min-width: 230px;
+	min-width: 240px;
 	background-size: cover;
 	background-color: lightgray;
 	background-image: url("http://i.stack.imgur.com/2OrtT.jpg");
@@ -30,9 +30,8 @@ body{
 .post-admin{
 	display: inline-block;
 }
-.post-admin-actions{
-		height: 32px;
-
+.post-admin-actions i{
+	padding: 4px;
 }
 
 

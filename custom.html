@@ -1,5 +1,9 @@
 <template name="custom_post_title">
-  	<a class="custom_post_title" href="{{custom_link}}">{{custom_title}}</a>
+	{{#if isMainPage}}
+		<a class="custom_post_title" title="{{this.url}}" href="{{this.url}}">{{custom_title}}</a>
+	{{else}}
+  		<a class="custom_post_title" href="{{custom_link}}">{{custom_title}}</a>
+  	{{/if}}
   	<br/>
   	<p class="custom_post_headline">
   		{{services_headline}}
@@ -21,11 +25,19 @@
 
 <template name="custom_post_thumbnail">
 	{{#if isEmpty services_thumbnail}}
-		<a href="/posts/{{this._id}}/{{this.slug}}">
-			<div class="post-thumbnail-container post-thumbnail" style="background-image:url( {{services_thumbnail}} )">
-	    		<div class="post-thumbnail-loading">{{>spinner}}</div>
-	  		</div>
-	  	</a>
+		{{#if isMainPage}}
+			<a href="{{this.url}}">
+				<div class="post-thumbnail-container post-thumbnail" style="background-image:url( {{services_thumbnail}} )">
+		    		<div class="post-thumbnail-loading">{{>spinner}}</div>
+		  		</div>
+		  	</a>
+		{{else}}
+			<a href="/posts/{{this._id}}/{{this.slug}}">
+				<div class="post-thumbnail-container post-thumbnail" style="background-image:url( {{services_thumbnail}} )">
+		    		<div class="post-thumbnail-loading">{{>spinner}}</div>
+		  		</div>
+		  	</a>
+		{{/if}}
 	{{else}}
 		<!-- <div class="post-thumbnail-container post-thumbnail" style="background-image:url()">
   		</div> -->

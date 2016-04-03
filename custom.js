@@ -139,7 +139,6 @@ Posts.addField({
 
 
 
-
 Posts.addField({
   fieldName: 'title',
   fieldSchema: {
@@ -245,21 +244,4 @@ Posts.addField(
     }
   }
 );
-
-
-
-// Posts.addField({
-//   fieldName: 'services_links',
-//   fieldSchema: {
-//     type: [String],
-//     label: "Links",
-//     optional: true,
-//     public: true,
-//     editableBy: ["member", "admin"],
-//     autoform: {
-//       omit: false
-//     }
-//   }
-// });
-
 

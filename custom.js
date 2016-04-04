@@ -185,21 +185,21 @@ Posts.addField({
   }
 });
 
-Posts.addField({
-  fieldName: 'services_headline',
-  fieldSchema: {
-    type: String,
-    label: "Headline",
-    optional: true,
-    public: true,
-    max:100,
-    editableBy: ["member", "admin"],
-    autoform: {
-      omit: false,
-      order: 50
-    }
-  }
-});
+// Posts.addField({
+//   fieldName: 'services_headline',
+//   fieldSchema: {
+//     type: String,
+//     label: "Headline",
+//     optional: true,
+//     public: true,
+//     max:100,
+//     editableBy: ["member", "admin"],
+//     autoform: {
+//       omit: false,
+//       order: 50
+//     }
+//   }
+// });
 
 
 Posts.addField({
@@ -221,7 +221,7 @@ Posts.addField({
   fieldName: 'services_thumbnail',
   fieldSchema: {
     type: String,
-    label: "Thumbnail URL",
+    label: "Image URL",
     optional: true,
     public: true,
     editableBy: ["member", "admin"],

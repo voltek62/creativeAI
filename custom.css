@@ -1,6 +1,27 @@
 body{
 	background-color:#f9f9f9;
 }
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
 .dark-bg{
 	background-color: white!important;
 	color: gray!important;

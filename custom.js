@@ -81,7 +81,8 @@ if(Meteor.isClient){
     } 
 
     if(pattern3.test(html)){
-      var replacement = '<a href="$1" target="_blank"><img class="sml" src="$1" /></a><br />';
+      //var replacement = '<a href="$1" target="_blank"><img class="sml" src="$1" /></a>';
+      var replacement = '<img class="sml" src="$1" />';
       var html = html.replace(pattern3, replacement);
     }     
     return html;

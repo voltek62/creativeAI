@@ -61,6 +61,49 @@ if(Meteor.isClient){
     }  
   });
 
+  
+  Template.custom_post_admin2.helpers({
+    showApprove: function () {
+      return !!Settings.get('requirePostsApproval') && (this.status === Posts.config.STATUS_PENDING || this.status === Posts.config.STATUS_REJECTED);
+    },
+    showReject: function(){
+      return !!Settings.get('requirePostsApproval') && (this.status === Posts.config.STATUS_PENDING || this.status === Posts.config.STATUS_APPROVED);
+    },
+    shortScore: function(){
+      return Math.floor(this.score*100)/100;
+    }
+  });
+
+  Template.custom_post_admin2.events({
+    'click .approve-link': function(e){
+      Meteor.call('approvePost', this._id);
+      e.preventDefault();
+    },
+    'click .reject-link': function(e){
+      Meteor.call('rejectPost', this._id);
+      e.preventDefault();
+    },
+    'click .delete-link': function(e){
+      var post = this;
+
+      e.preventDefault();
+
+      if(confirm("Delete “"+post.title+"”?")){
+        FlowRouter.go('postsDefault');
+        Meteor.call("deletePostById", post._id, function(error) {
+          if (error) {
+            console.log(error);
+            Messages.flash(error.reason, 'error');
+          } else {
+            Messages.flash(i18n.t('your_post_has_been_deleted'), 'success');
+          }
+        });
+      }
+    }
+  });
+
+
+
 
 
 
@@ -71,12 +114,12 @@ if(Meteor.isClient){
     var pattern3 = /([-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(?:jpg|jpeg|gif|png))/gi;
 
     if(pattern1.test(html)){
-       var replacement = '<div class="video-container"><iframe width="420" height="345" src="//player.vimeo.com/video/$1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
+       var replacement = '<div class="video-container"><iframe width="420" height="345" src="//player.vimeo.com/video/$1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div><br/>';
        var html = html.replace(pattern1, replacement);
     }
 
     if(pattern2.test(html)){
-      var replacement = '<div class="video-container"><iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe></div>';
+      var replacement = '<div class="video-container"><iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe></div><br/>';
       var html = html.replace(pattern2, replacement);
     } 
 

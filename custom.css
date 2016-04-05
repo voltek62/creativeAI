@@ -20,7 +20,13 @@ body{
 
 
 
-
+.avatar .avatar-image {
+    z-index: 10;
+    background-color: #fff;
+}
+.avatar .avatar-initials{
+	z-index: 9;
+}
 
 .dark-bg{
 	background-color: white!important;

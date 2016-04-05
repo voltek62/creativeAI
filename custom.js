@@ -1,4 +1,16 @@
+
+
 if(Meteor.isClient){
+
+  if(Meteor.startup){
+  
+    Avatar.setOptions({
+      fallbackType: 'initials',
+      emailHashProperty: 'telescope.emailHash',
+      gravatarDefault: 'initials' //mm
+    });
+
+  }
 
   /// VOTE ///
   Template.custom_post_vote2.helpers({
@@ -61,7 +73,7 @@ if(Meteor.isClient){
     }  
   });
 
-  
+
   Template.custom_post_admin2.helpers({
     showApprove: function () {
       return !!Settings.get('requirePostsApproval') && (this.status === Posts.config.STATUS_PENDING || this.status === Posts.config.STATUS_REJECTED);

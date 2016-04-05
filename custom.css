@@ -28,6 +28,12 @@ body{
 	font-weight: 300;
 	font-size: 17px;
 }
+
+.mobile-nav{
+	background-color: gray!important;
+}
+
+
 #search{
 	background-color: #f9f7f7;
 	color: #2b2b2b;

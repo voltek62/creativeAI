@@ -7,7 +7,7 @@ if(Meteor.isClient){
     Avatar.setOptions({
       fallbackType: 'initials',
       emailHashProperty: 'telescope.emailHash',
-      gravatarDefault: 'initials' //mm
+      gravatarDefault: 'mm'
     });
 
   }
@@ -143,7 +143,10 @@ if(Meteor.isClient){
     return html;
   }
 
-  Template.registerHelper("makeVideo", function (object) {
+  Template.registerHelper("makeVideo", function () {
+    if (FlowRouter.getRouteName() !== "postPage") {
+      return this.htmlBody;
+    }
     var convert = convertMedia(this.body);
     var ret = Telescope.utils.sanitize(marked(convert));
     return ret;

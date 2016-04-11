@@ -62,9 +62,12 @@ body{
 
 .post-admin{
 	display: inline-block;
+	vertical-align: baseline;
+	height: 22px;
 }
 .post-admin-actions i{
-	padding: 4px;
+	padding: 3px;
+	width: 22px;
 }
 
 .sml{
